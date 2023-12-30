@@ -10,6 +10,7 @@ function TopBar() {
                     alt="Logo Icon"
                     width={20}
                     height={20}
+                    priority
                 ></Image>
                 <p className="text-heading2-bold text-light-1 max-xs:hidden">
                     Threads
