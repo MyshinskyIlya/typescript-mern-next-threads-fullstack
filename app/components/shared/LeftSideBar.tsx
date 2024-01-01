@@ -1,5 +1,59 @@
+"use client";
+
+import Link from "next/link";
+import { sidebarLinks } from "../../../constants/index.js";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { SignOutButton, SignedIn } from "@clerk/nextjs";
+
 function LeftSideBar() {
-    return <h1>LeftSideBar</h1>;
+    const router = useRouter();
+    const pathname = usePathname();
+
+    return (
+        <section className="fixed top-0 left-0  custom-scrollbar leftsidebar">
+            <div className="flex w-full flex-1 flex-col gap-6 px-6 text-light-1">
+                {sidebarLinks.map((link) => {
+                    const isActive =
+                        (pathname.includes(link.route) &&
+                            link.route.length > 1) ||
+                        pathname == link.route;
+                    return (
+                        <Link
+                            key={link.label}
+                            href={link.route}
+                            className={`leftsidebar_link ${
+                                isActive && "bg-primary-500"
+                            }`}
+                        >
+                            <Image
+                                src={link.imgURL}
+                                alt="Link"
+                                width={24}
+                                height={24}
+                            />
+                            <p className="max-lg:hidden">{link.label}</p>
+                        </Link>
+                    );
+                })}
+            </div>
+            <div className="mt-auto px-6">
+                <SignedIn>
+                    <SignOutButton signOutCallback={() => router.push("/")}>
+                        <div className="flex cursor-pointer gap-4 p-4">
+                            <Image
+                                src={"/assets/logout.svg"}
+                                alt="Logout"
+                                width={24}
+                                height={24}
+                            />
+                            <p className="text-light-2 max-lg:hidden">Logout</p>
+                        </div>
+                    </SignOutButton>
+                </SignedIn>
+            </div>
+        </section>
+    );
 }
 
 export default LeftSideBar;
