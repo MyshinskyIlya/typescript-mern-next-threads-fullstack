@@ -33,9 +33,11 @@ function ThreadCard({
     currentUserId,
     author,
     content,
+    comments,
     community,
     createdAt,
     updateAt,
+    isComment,
 }: ThreadCardProps) {
     return (
         <article className="flex w-full flex-col rounded-xl bg-dark-2 p-7">
@@ -55,9 +57,62 @@ function ThreadCard({
                         </Link>
                         <div className="thread-card_bar"></div>
                     </div>
+
+                    <div className="flex w-full flex-col gap-1">
+                        <Link href={`/profile/${author.id}`} className="w-fit">
+                            <h4 className="cursor-pointer text-base-semibold text-light-1">
+                                {author.name}
+                            </h4>
+                        </Link>
+
+                        <p className="text-small-regular text-light-2">
+                            {content}
+                        </p>
+
+                        <div className="mt-5 flex flex-col gap-3">
+                            <div className="flex gap-3.5">
+                                <Image
+                                    src={"/assets/heart-gray.svg"}
+                                    alt="Like"
+                                    width={24}
+                                    height={24}
+                                    className="cursor-pointer object-contain"
+                                ></Image>
+                                <Link href={`/thread/${id}`}>
+                                    <Image
+                                        src={"/assets/reply.svg"}
+                                        alt="Reply"
+                                        width={24}
+                                        height={24}
+                                        className="cursor-pointer object-contain"
+                                    ></Image>
+                                </Link>
+                                <Image
+                                    src={"/assets/repost.svg"}
+                                    alt="Repost"
+                                    width={24}
+                                    height={24}
+                                    className="cursor-pointer object-contain"
+                                ></Image>
+                                <Image
+                                    src={"/assets/share.svg"}
+                                    alt="Share"
+                                    width={24}
+                                    height={24}
+                                    className="cursor-pointer object-contain"
+                                ></Image>
+                            </div>
+                            {isComment && comments?.length! > 0 && (
+                                <Link href={`thread/${id}`}>
+                                    <p className="mt-1 text-subtle-medium text-gray-1">
+                                        {comments?.length} replies
+                                    </p>
+                                </Link>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <h2 className="text-small-regular text-light-2">{content}</h2>
         </article>
     );
 }
