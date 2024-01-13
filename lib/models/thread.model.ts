@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 
-export const threadSchema = new mongoose.Schema({
+const threadSchema = new mongoose.Schema({
     text: {
         type: String,
-        require: true,
+        required: true,
     },
     author: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        require: true,
+        required: true,
     },
     community: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Community",
     },
     createdAt: {
@@ -23,7 +23,7 @@ export const threadSchema = new mongoose.Schema({
     },
     children: [
         {
-            type: mongoose.Schema.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Thread",
         },
     ],
