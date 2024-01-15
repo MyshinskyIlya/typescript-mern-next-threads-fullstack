@@ -1,35 +1,47 @@
-import "../globals.css";
+import React from "react";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import TopBar from "../../components/shared/TopBar";
-import LeftSideBar from "../../components/shared/LeftSideBar";
-import RightSideBar from "../../components/shared/RightSideBar";
-import BottomBar from "../../components/shared/BottomBar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+
+import "../globals.css";
+import TopBar from "@/components/shared/TopBar";
+import LeftSideBar from "@/components/shared/LeftSideBar";
+import BottomBar from "@/components/shared/BottomBar";
+import RightSideBar from "@/components/shared/RightSideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Threads",
-    descript: "A Next.js 14 Meta Threads Application",
+    description: "A Next.js 13 Meta Threads application",
 };
+
 export default function RootLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <ClerkProvider>
+        <ClerkProvider
+            appearance={{
+                baseTheme: dark,
+            }}
+        >
             <html lang="en">
                 <body className={inter.className}>
-                    <TopBar></TopBar>
+                    <TopBar />
+
                     <main className="flex flex-row">
-                        <LeftSideBar></LeftSideBar>
+                        <LeftSideBar />
                         <section className="main-container">
                             <div className="w-full max-w-4xl">{children}</div>
                         </section>
-                        <RightSideBar></RightSideBar>
+                        {/* @ts-ignore */}
+                        <RightSideBar />
                     </main>
-                    <BottomBar></BottomBar>
+
+                    <BottomBar />
                 </body>
             </html>
         </ClerkProvider>
