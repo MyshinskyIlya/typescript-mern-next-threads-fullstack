@@ -51,6 +51,8 @@ export const POST = async (request: Request) => {
     let evnt: Event | null = null;
 
     try {
+        console.log(process.env.NEXT_CLERK_WEBHOOK_SECRET);
+
         evnt = wh.verify(
             JSON.stringify(payload),
             heads as IncomingHttpHeaders & WebhookRequiredHeaders
